@@ -1,0 +1,38 @@
+from decimal import Decimal
+from datetime import date
+
+def confirmation(message):
+    while True:
+        confirm = input(f"{message} (y/n): ").lower().strip()
+        if confirm == "y":
+            return True
+        elif confirm == "n":
+            return False
+        else:
+            print("Please respond with 'y' or 'n'")
+
+def type_name(message):
+    while True:
+        try:
+            name = input(message).lower().strip()
+            return name
+        except EOFError:
+            print("Invalid input, please try again")
+
+def type_amount(message):
+    while True:
+        try:
+            value = float(input(message))
+            Decimal(value)
+            return value
+        except ValueError:
+            print("Invalid input, please try again")
+
+def type_date(message):
+    while True:
+        try:
+            new_date = date.fromisoformat(input(message))
+            input("New date add successfully, press any key to continue...")
+            return new_date
+        except (ValueError, TypeError):
+            print("Invalid date, please try again")
