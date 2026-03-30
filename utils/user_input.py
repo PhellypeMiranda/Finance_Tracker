@@ -36,3 +36,15 @@ def type_date(message):
             return new_date
         except (ValueError, TypeError):
             print("Invalid date, please try again")
+
+def type_index(message, length):
+    while True:
+        try:
+            index = int(input(message))
+            if index < 1 or index > length:
+                print("Invalid input, please try again")
+                continue
+            else:
+                return index
+        except ValueError:
+            print("Invalid input, please try again")

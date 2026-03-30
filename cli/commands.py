@@ -6,9 +6,9 @@ from models.category import Category
 def main_menu_commands(option, service):
     match option:
         case 1:
-            service.add_transaction(service)
+            service.add_item(service)
         case 2:
-            print("aqui vou remover items")
+            service.remove_transaction(service)
         case 3:
             print("aqui vou modificar items")
         case 4:
@@ -46,14 +46,24 @@ def transactions_menu_commands(option, service):
             print("Invalid input! try again...")
     interface.transactions_menu(service)
 
-def transaction_type_commands(option, services):
+def transaction_type_commands(option, service):
     match option:
         case 1:
+            service.income = True
+            service.expense = False
+            service.balance = False
+            service.clear_screen()
+            interface.show_transactions(service)
             return TransactionType.INCOME
         case 2:
+            service.income = False
+            service.expense = True
+            service.balance = False
+            service.clear_screen()
+            interface.show_transactions(service)
             return TransactionType.EXPENSE
         case 0:
-            interface.main_menu(services)
+            interface.main_menu(service)
             return None
         case _:
             print("Invalid input! try again...")

@@ -1,5 +1,6 @@
 from cli import commands
 from models.category import Category
+from models.transaction_type import TransactionType
 
 def main_menu(service):
     service.clear_screen()
@@ -30,14 +31,14 @@ def transactions_menu(service):
 
     commands.transactions_menu_commands(option, service)
 
-def transaction_type_menu(service):
+def transaction_type_menu(service, transaction_type):
     service.clear_screen()
     show_transactions(service)
     option = int(input("\n===========MENU===========\n"
-          "What kind of transaction do you want to add?\n"
-          "1 - Add an income\n"
-          "2 - Add an expense\n"
-          "0 - Return\n"
+          f"What kind of transaction do you want to {transaction_type}?\n"
+          f"1 - {transaction_type} an income\n"
+          f"2 - {transaction_type} an expense\n"
+          f"0 - Return\n"
           "Select an option: "))
 
     return commands.transaction_type_commands(option, service)
@@ -73,16 +74,16 @@ def show_transactions(service):
               f"Total Balance: $:{total_income - total_expense:.2f}")
 
     if service.income:
-        print("\n===========================INCOME===========================\n"
-              f"{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        for i in service.service:
-            if i.transaction_type.value == "income":
-                print(i)
+        print("\n==============================INCOME==============================\n"
+              f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
+        income_list = service.create_list(TransactionType.INCOME)
+        for c, i in enumerate(income_list, start=1):
+            print(f"{c}    {i}")
 
     if service.expense:
-        print("\n==========================EXPENSES===========================\n"
-              f"{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        for i in service.service:
-            if i.transaction_type.value == "expense":
-                print(i)
+        print("\n=============================EXPENSES==============================\n"
+              f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
+        expense_list = service.create_list(TransactionType.EXPENSE)
+        for c, i in enumerate(expense_list, start=1):
+            print(f"{c}     {i}")
 
