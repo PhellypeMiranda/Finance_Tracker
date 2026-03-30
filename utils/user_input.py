@@ -48,3 +48,19 @@ def type_index(message, length):
                 return index
         except ValueError:
             print("Invalid input, please try again")
+
+def change_date(service, dates_with_items):
+    while True:
+        try:
+            count = 1
+            print("\nChoose a date:")
+            for i in dates_with_items:
+                if service.by_month:
+                    print(f"{count} - {i.strftime('%B/%Y')}")
+                else:
+                    print(f"{count} - {i.strftime('%Y')}")
+                count += 1
+            option = int(input("Select a option: "))
+            return option
+        except ValueError:
+            input("Invalid input, Try again...")

@@ -2,7 +2,9 @@ from cli import interface
 from models.transaction_type import TransactionType
 from models.category import Category
 from utils import user_input
-
+from decimal import Decimal
+from datetime import date
+from utils import format
 
 def main_commands(option, service):
     match option:
@@ -11,18 +13,16 @@ def main_commands(option, service):
         case 2:
             service.remove_transaction(service)
         case 3:
-            service.modify_transaction((service))
+            service.modify_transaction(service)
         case 4:
-            service.income = True
-            service.expense = True
             service.balance = False
-            interface.transactions_menu(service)
+            interface.search_menu(service)
         case 5:
-            print("aqui vou ver as estatistica items")
+            interface.date_menu(service)
         case 0:
             service.exit()
         case _:
-            print("Invalid input! try again...")
+            input("Invalid input! try again...")
 
 def modify_commands(option, service, transaction):
     match option:
@@ -38,11 +38,12 @@ def modify_commands(option, service, transaction):
             new_amount = user_input.type_amount("Type the new value: ")
             confirmation = user_input.confirmation(f"\nChange the value to {new_amount}?")
             if confirmation:
-                transaction.amount = new_amount
+                transaction.amount = Decimal(new_amount)
                 input("Value changed, press any key to continue...")
             else:
                 input("Value not changed, press any key to continue...")
         case 3:
+            new_type = None
             if transaction.transaction_type == TransactionType.INCOME:
                 new_type = TransactionType.EXPENSE
             elif transaction.transaction_type == TransactionType.EXPENSE:
@@ -134,12 +135,9 @@ def category_type_commands(option, services, transaction_type):
                 return Category.BONUS
             case 5:
                 return Category.OTHER_INCOME
-            case 0:
-                interface.main_menu(services)
-                return None
             case _:
-                print("Invalid input! try again...")
-                return None
+                input("Invalid input! try again...")
+                interface.category_menu(services, transaction_type)
 
     elif transaction_type == TransactionType.EXPENSE:
         match option:
@@ -163,13 +161,89 @@ def category_type_commands(option, services, transaction_type):
                 return Category.SUBSCRIPTIONS
             case 10:
                 return Category.OTHER_EXPENSE
-            case 0:
-                interface.main_menu(services)
-                return None
             case _:
-                print("Invalid input! try again...")
-                return None
+                input("Invalid input! try again...")
+                interface.category_menu(services, transaction_type)
     else:
         print("ERROR! try again...")
         interface.main_menu(services)
         return None
+
+def search_commands(option, service):
+    match option:
+        case 1:
+            service.balance = False
+            service.income = True
+            service.expense = True
+            service.category = None
+        case 2:
+            service.balance = False
+            service.income = True
+            service.expense = False
+        case 3:
+            service.income = False
+            service.expense = True
+        case 4:
+            transaction_type = interface.transaction_type_menu(service, "show")
+            if transaction_type == TransactionType.INCOME:
+                service.income = True
+                service.expense = False
+            elif transaction_type == TransactionType.EXPENSE:
+                service.expense = True
+                service.income = False
+            category = interface.category_menu(service, transaction_type)
+            service.category = category
+        case 5:
+            interface.sort_menu(service)
+        case 0:
+            interface.main_menu(service)
+        case _:
+            print("Invalid input! try again...")
+            return None
+    interface.search_menu(service)
+    return None
+
+def sort_commands(option, service):
+    match option:
+        case 1:
+            service.sort = "name"
+        case 2:
+            service.sort = "value"
+        case 3:
+            service.sort = "date"
+        case 4:
+            service.toggle_increasing()
+        case 0:
+            interface.search_menu(service)
+            return None
+        case _:
+            print("Invalid input! try again...")
+            return None
+    return None
+
+def date_commands(option, service):
+    match option:
+        case 1:
+            service.by_month = True
+            service.date_setter(service)
+        case 2:
+            service.by_month = False
+            service.date_setter(service)
+        case 3:
+            service.by_month = True
+            input("Showing transactions by month...")
+        case 4:
+            service.by_month = False
+            input("Showing transactions by year...")
+        case 5:
+            service.by_month = True
+            service.month = date.today().month
+            service.year = date.today().year
+            input(f"Date set to {format.month_year(date.today())}")
+        case 0:
+            interface.main_menu(service)
+            return None
+        case _:
+            print("Invalid input! try again...")
+            return None
+    return None

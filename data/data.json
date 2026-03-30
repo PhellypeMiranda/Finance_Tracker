@@ -1,23 +1,58 @@
 [
     {
-        "name": "roubo",
+        "name": "aulas",
         "transaction_type": "income",
-        "amount": "20",
-        "transaction_date": "2026-03-30",
-        "category": "investments"
-    },
-    {
-        "name": "aula de qu\u00edmca",
-        "transaction_type": "income",
-        "amount": "50",
-        "transaction_date": "2026-03-30",
+        "amount": "52",
+        "transaction_date": "2026-03-01",
         "category": "freelance"
     },
     {
-        "name": "comer puta",
+        "name": "comer cu",
         "transaction_type": "expense",
-        "amount": "150",
+        "amount": "54",
         "transaction_date": "2026-03-30",
         "category": "entertainment"
+    },
+    {
+        "name": "dwad",
+        "transaction_type": "income",
+        "amount": "555",
+        "transaction_date": "2026-03-30",
+        "category": "bonus"
+    },
+    {
+        "name": "frsf",
+        "transaction_type": "income",
+        "amount": "5664",
+        "transaction_date": "2026-03-30",
+        "category": "other_income"
+    },
+    {
+        "name": "dwade",
+        "transaction_type": "expense",
+        "amount": "100",
+        "transaction_date": "2026-03-30",
+        "category": "food"
+    },
+    {
+        "name": "kihlij",
+        "transaction_type": "expense",
+        "amount": "69",
+        "transaction_date": "2026-03-30",
+        "category": "housing"
+    },
+    {
+        "name": "entrega",
+        "transaction_type": "income",
+        "amount": "20",
+        "transaction_date": "2026-01-10",
+        "category": "freelance"
+    },
+    {
+        "name": "antigo",
+        "transaction_type": "income",
+        "amount": "55",
+        "transaction_date": "2025-02-02",
+        "category": "investments"
     }
 ]
