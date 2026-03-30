@@ -4,6 +4,8 @@ from models.transaction_type import TransactionType
 
 def main_menu(service):
     service.clear_screen()
+    service.income = True
+    service.expense = True
     show_transactions(service)
     option = int(input("\n===========MENU===========\n"
           "1 - Add new transaction\n"
@@ -14,7 +16,7 @@ def main_menu(service):
           "0 - Exit\n"
           "Select an option: "))
 
-    commands.main_menu_commands(option, service)
+    commands.main_commands(option, service)
 
 def transactions_menu(service):
     service.clear_screen()
@@ -29,21 +31,36 @@ def transactions_menu(service):
           "0 - Return\n"
           "Select an option: "))
 
-    commands.transactions_menu_commands(option, service)
+    commands.transactions_commands(option, service)
+
+def modify_menu(service, transaction):
+    service.clear_screen()
+    show_transactions(service)
+    option = int(input("\n===========MENU===========\n"
+          "Which would you like to modify?\n"
+          "1 - Name\n"
+          "2 - Value\n"
+          "3 - Type and category\n"
+          "4 - Category\n"
+          "5 - Date\n"
+          "0 - Return\n"
+          "Select an option: "))
+
+    commands.modify_commands(option, service, transaction)
 
 def transaction_type_menu(service, transaction_type):
     service.clear_screen()
     show_transactions(service)
     option = int(input("\n===========MENU===========\n"
-          f"What kind of transaction do you want to {transaction_type}?\n"
-          f"1 - {transaction_type} an income\n"
-          f"2 - {transaction_type} an expense\n"
+          f"Which kind of transaction do you want to {transaction_type}?\n"
+          f"1 - {transaction_type} income\n"
+          f"2 - {transaction_type} expense\n"
           f"0 - Return\n"
           "Select an option: "))
 
     return commands.transaction_type_commands(option, service)
 
-def category_type_menu(service, transaction_type):
+def category_menu(service, transaction_type):
     service.clear_screen()
     show_transactions(service)
     print("\n===========MENU===========\n"
@@ -81,9 +98,9 @@ def show_transactions(service):
             print(f"{c}    {i}")
 
     if service.expense:
-        print("\n=============================EXPENSES==============================\n"
+        print("\n=============================EXPENSES=============================\n"
               f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
         expense_list = service.create_list(TransactionType.EXPENSE)
         for c, i in enumerate(expense_list, start=1):
-            print(f"{c}     {i}")
+            print(f"{c}    {i}")
 

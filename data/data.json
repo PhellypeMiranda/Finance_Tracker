@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "name": "roubo",
+        "transaction_type": "income",
+        "amount": "20",
+        "transaction_date": "2026-03-30",
+        "category": "investments"
+    },
+    {
+        "name": "aula de qu\u00edmca",
+        "transaction_type": "income",
+        "amount": "50",
+        "transaction_date": "2026-03-30",
+        "category": "freelance"
+    },
+    {
+        "name": "comer puta",
+        "transaction_type": "expense",
+        "amount": "150",
+        "transaction_date": "2026-03-30",
+        "category": "entertainment"
+    }
+]

@@ -12,9 +12,9 @@ from utils import validation as validation
 class Service:
     def __init__(self, month=date.today().month, year=date.today().year, category=None):
         self.service = None
-        self.balance = True
-        self.income = False
-        self.expense = False
+        self.balance = False
+        self.income = True
+        self.expense = True
         self.month = month
         self.year = year
         self.category = category
@@ -31,7 +31,7 @@ class Service:
         transaction_type = interface.transaction_type_menu(service, "add")
         name = user_input.type_name(f"\nType the name of the {transaction_type.value}: ")
         amount = user_input.type_amount(f"Type the value of the {transaction_type.value}: ")
-        category = interface.category_type_menu(service, transaction_type)
+        category = interface.category_menu(service, transaction_type)
         current_date = user_input.confirmation(f"Add today's date: {format.today()}?")
         if current_date:
              transaction_date = date.today()
@@ -56,6 +56,19 @@ class Service:
                         input(f"{i.name} has been removed!")
             else:
                 input("operation cancelled, press any key to continue...")
+            self.save_ledger()
+        interface.main_menu(service)
+
+    def modify_transaction(self, service):
+        transaction_type = interface.transaction_type_menu(service, "modify")
+        transactions_list = self.create_list(transaction_type)
+        not_empty = validation.check_if_not_empty(transactions_list)
+        if not_empty:
+            index = user_input.type_index(f"\nType the id of the {transaction_type.value} you want to modify: ",
+                                          len(transactions_list))
+            for i in self.service:
+                if i == transactions_list[index - 1]:
+                    interface.modify_menu(service, i)
             self.save_ledger()
         interface.main_menu(service)
 
