@@ -14,13 +14,6 @@
         "category": "freelance"
     },
     {
-        "name": "aula de qu\u00edmica",
-        "transaction_type": "income",
-        "amount": "40",
-        "transaction_date": "2026-03-30",
-        "category": "freelance"
-    },
-    {
         "name": "mercado",
         "transaction_type": "expense",
         "amount": "100",
@@ -33,5 +26,26 @@
         "amount": "75",
         "transaction_date": "2026-02-05",
         "category": "utilities"
+    },
+    {
+        "name": "hamburguer",
+        "transaction_type": "expense",
+        "amount": "30",
+        "transaction_date": "2026-03-30",
+        "category": "food"
+    },
+    {
+        "name": "trabalho online",
+        "transaction_type": "income",
+        "amount": "200",
+        "transaction_date": "2025-01-01",
+        "category": "freelance"
+    },
+    {
+        "name": "pegamento de dividas",
+        "transaction_type": "expense",
+        "amount": "20",
+        "transaction_date": "2025-01-01",
+        "category": "other_expense"
     }
 ]

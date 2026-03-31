@@ -60,9 +60,9 @@ def modify_commands(option, service, transaction):
             confirmation = user_input.confirmation(f"\nChange the category to {new_category.value[0]}?")
             if confirmation:
                 transaction.category = new_category
-                input("Type changed, press any key to continue...")
+                input("Category changed, press any key to continue...")
             else:
-                input("Type not changed, press any key to continue...")
+                input("Category not changed, press any key to continue...")
         case 5:
             new_date = user_input.type_date("Type the new date (YYYY-MM-DD): ")
             confirmation = user_input.confirmation(f"Change the date to {new_date}?")
@@ -72,7 +72,7 @@ def modify_commands(option, service, transaction):
             else:
                 input("Date not changed, press any key to continue...")
         case 0:
-            interface.main_menu(service)
+            return
         case _:
             print("Invalid input! try again...")
 
@@ -94,10 +94,10 @@ def transactions_commands(option, service):
         case 6:
             print("aqui vou ver as estatistica items")
         case 0:
-            interface.main_menu(service)
+            return
         case _:
             print("Invalid input! try again...")
-    interface.transactions_menu(service)
+    return
 
 def transaction_type_commands(option, service):
     match option:

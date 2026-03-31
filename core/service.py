@@ -29,10 +29,14 @@ class Service:
                 continue
             if self.category and self.category != item.category:
                 continue
-            if self.by_month and item.transaction_date.month != self.month:
-                continue
-            if not self.month and item.transaction_date.year != self.year:
-                continue
+            if self.by_month:
+                if item.transaction_date.month != self.month:
+                    continue
+                if item.transaction_date.year != self.year:
+                    continue
+            else:
+                if item.transaction_date.year != self.year:
+                    continue
             transaction_list.append(item)
         return transaction_list
 
@@ -43,8 +47,7 @@ class Service:
             "value": lambda x: x.amount
         }
         key_func = sort_map.get(self.sort)
-        transaction_list.sort(key=key_func, reverse=not self.increasing)
-        return transaction_list
+        return sorted(transaction_list, key=key_func, reverse=not self.increasing)
 
     def date_setter(self, service):
         while True:
@@ -69,6 +72,7 @@ class Service:
                     else:
                         input(f"Year changed to {format.year(selected)}")
                 interface.date_menu(service)
+                break
             except (ValueError, IndexError):
                 print("Please enter a valid month!")
 

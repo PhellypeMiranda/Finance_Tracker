@@ -1,3 +1,4 @@
+import utils.format
 from cli import commands
 from models.category import Category
 from models.transaction_type import TransactionType
@@ -8,7 +9,7 @@ def main_menu(service):
         try:
             service.clear_screen()
             service.balance = True
-            service.balance = True
+            service.expense = True
             service.income = True
             show_transactions(service)
             option = int(input("\n===========MENU===========\n"
@@ -99,7 +100,7 @@ def category_menu(service, transaction_type):
                     print(f"{count} - {i.value[0].capitalize()}")
                     count += 1
             option = int(input("Select an option: "))
-            category = (commands.category_type_commands(option, service, transaction_type))
+            category = commands.category_type_commands(option, service, transaction_type)
             return category
 
         except ValueError:
@@ -107,43 +108,54 @@ def category_menu(service, transaction_type):
 
 def show_transactions(service):
 
+    income_list = service.apply_filter(TransactionType.INCOME)
+    sorted_income_list = service.sort_list(income_list)
+    expense_list = service.apply_filter(TransactionType.EXPENSE)
+    sorted_expense_list = service.sort_list(expense_list)
+
+    base_list = income_list or expense_list
+
+    if base_list:
+        if service.by_month:
+            shown_date = utils.format.month_year(base_list[0].transaction_date)
+        else:
+            shown_date = utils.format.year(base_list[0].transaction_date)
+    else:
+        shown_date = "NO DATA"
+
     if service.income:
-        print("\n==============================INCOME==============================\n"
+        print(f"\n===========================INCOME-{shown_date}===========================\n"
               f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        income_list = service.apply_filter(TransactionType.INCOME)
-        sorted_income_list = service.sort_list(income_list)
         if sorted_income_list:
-            for c, i in enumerate(income_list, start=1):
+            for c, i in enumerate(sorted_income_list, start=1):
                 print(f"{c}    {i}")
         else:
             print(f"{'\nLIST EMPTY! try adding new transactions...':^70}")
 
     if service.expense:
-        print("\n=============================EXPENSES=============================\n"
+        print(f"\n===========================EXPENSES-{shown_date}=========================\n"
               f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        expense_list = service.apply_filter(TransactionType.EXPENSE)
-        sorted_expense_list = service.sort_list(expense_list)
         if sorted_expense_list:
-            for c, i in enumerate(expense_list, start=1):
+            for c, i in enumerate(sorted_expense_list, start=1):
                 print(f"{c}    {i}")
         else:
             print(f"{'\nLIST EMPTY! try adding new transactions...':^70}")
 
-        if service.balance:
-            total_income = 0
-            for i in income_list:
-                if i.transaction_type.value == "income":
-                    total_income += i.amount
+    if service.balance:
+        total_income = 0
+        for i in income_list:
+            if i.transaction_type.value == "income":
+                total_income += i.amount
 
-            total_expense = 0
-            for i in expense_list:
-                if i.transaction_type.value == "expense":
-                    total_expense += i.amount
+        total_expense = 0
+        for i in expense_list:
+            if i.transaction_type.value == "expense":
+                total_expense += i.amount
 
-            print("\n==============================BALANCE============================="
-                  f"\n{'Total income: $:':>37}{total_income:.2f}\n"
-                  f"{'Total expense: $':>37}{total_expense:.2f}\n"
-                  f"{'Total Balance: $:':>38}{total_income - total_expense:.2f}")
+        print(f"\n===========================BALANCE-{shown_date}-========================="
+              f"\n{'Total income: $:':>37}{total_income:.2f}\n"
+              f"{'Total expense: $':>37}{total_expense:.2f}\n"
+              f"{'Total Balance: $:':>38}{total_income - total_expense:.2f}")
 
 def search_menu(service):
     while True:
