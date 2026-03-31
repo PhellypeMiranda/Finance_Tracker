@@ -14,13 +14,6 @@
         "category": "freelance"
     },
     {
-        "name": "mercado",
-        "transaction_type": "expense",
-        "amount": "100",
-        "transaction_date": "2026-03-30",
-        "category": "housing"
-    },
-    {
         "name": "conta de luz",
         "transaction_type": "expense",
         "amount": "75",
@@ -47,5 +40,47 @@
         "amount": "20",
         "transaction_date": "2025-01-01",
         "category": "other_expense"
+    },
+    {
+        "name": "1",
+        "transaction_type": "income",
+        "amount": "5",
+        "transaction_date": "2026-02-02",
+        "category": "freelance"
+    },
+    {
+        "name": "aula",
+        "transaction_type": "income",
+        "amount": "50",
+        "transaction_date": "2026-03-31",
+        "category": "freelance"
+    },
+    {
+        "name": "compras",
+        "transaction_type": "expense",
+        "amount": "20",
+        "transaction_date": "2026-03-31",
+        "category": "transport"
+    },
+    {
+        "name": "tutu",
+        "transaction_type": "expense",
+        "amount": "52",
+        "transaction_date": "2026-03-31",
+        "category": "food"
+    },
+    {
+        "name": "dsd",
+        "transaction_type": "income",
+        "amount": "1",
+        "transaction_date": "2026-03-31",
+        "category": "salary"
+    },
+    {
+        "name": "grg",
+        "transaction_type": "income",
+        "amount": "55",
+        "transaction_date": "2026-03-31",
+        "category": "bonus"
     }
 ]

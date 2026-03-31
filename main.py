@@ -1,10 +1,12 @@
 from cli import interface
 from core.service import Service
+from cli import commands
 
-def main():
+def run():
     service = Service()
     service.load_ledger()
-    interface.main_menu(service)
+    option = interface.main_menu(service)
+    commands.main_commands(option, service)
 
 if __name__ == "__main__":
-    main()
+    run()

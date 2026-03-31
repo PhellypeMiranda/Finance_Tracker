@@ -27,25 +27,6 @@ def main_menu(service):
         except ValueError:
             input("Invalid input, type a number!")
 
-def transactions_menu(service):
-    while True:
-        try:
-            service.clear_screen()
-            show_transactions(service)
-            option = int(input("\n===========MENU===========\n"
-                               "1 - See all transactions\n"
-                               "2 - See only income\n"
-                               "3 - See only expenses\n"
-                               "4 - Change the month\n"
-                               "5 - See by year\n"
-                               "6 - See statistics\n"
-                               "0 - Return\n"
-                               "Select an option: "))
-
-            commands.transactions_commands(option, service)
-        except ValueError:
-            input("Invalid input, Try again...")
-
 def modify_menu(service, transaction):
     while True:
         try:
@@ -58,11 +39,9 @@ def modify_menu(service, transaction):
                                "3 - Type and category\n"
                                "4 - Category\n"
                                "5 - Date\n"
-                               "0 - Return\n"
                                "Select an option: "))
 
             commands.modify_commands(option, service, transaction)
-            break
 
         except ValueError:
             input("Invalid input, Try again...")
@@ -76,10 +55,9 @@ def transaction_type_menu(service, operation_type):
                                f"Which kind of transaction do you want to {operation_type}?\n"
                                f"1 - {operation_type} income\n"
                                f"2 - {operation_type} expense\n"
-                               f"0 - Return\n"
                                "Select an option: "))
 
-            if 0 <= option <= 2:
+            if 1 <= option <= 2:
                 return commands.transaction_type_commands(option, service)
             else:
                 input("Invalid input, Try again...")
@@ -93,15 +71,36 @@ def category_menu(service, transaction_type):
             service.clear_screen()
             show_transactions(service)
             print("\n===========MENU===========\n"
-                  "Select a category for your transaction:")
-            count = 1
-            for i in Category:
-                if i.value[1] == transaction_type:
-                    print(f"{count} - {i.value[0].capitalize()}")
-                    count += 1
-            option = int(input("Select an option: "))
-            category = commands.category_type_commands(option, service, transaction_type)
-            return category
+                  "Select a category for your transaction:\n")
+            if transaction_type.value == "income":
+                option = int(input("1: Salary\n"
+                                   "2: Freelance\n"
+                                   "3: Investment\n"
+                                   "4: Bonus\n"
+                                   "5: Others\n"
+                                   "Select an option: "))
+                if 1 <= option <= 5:
+                    return commands.category_type_commands(option, transaction_type)
+                else:
+                    input("Invalid input, Try again...")
+
+            if transaction_type.value == "expense":
+                option = int(input("1: Food\n"
+                                   "2: Transport\n"
+                                   "3: Housing\n"
+                                   "4: Utilities\n"
+                                   "5: Health\n"
+                                   "6: Entertainment\n"
+                                   "7: Education\n"
+                                   "8: Shopping\n"
+                                   "9: Subscription\n"
+                                   "10: Others\n"
+                                   "Select an option: "))
+
+                if 1 <= option <= 10:
+                    return commands.category_type_commands(option, transaction_type)
+                else:
+                    input("Invalid input, Try again...")
 
         except ValueError:
             input("Invalid input, Try again...")
@@ -170,8 +169,10 @@ def search_menu(service):
                                "5 - Sort by...\n"
                                "0 - Return\n"
                                "Select an option: "))
-
-            commands.search_commands(option, service)
+            if option == 0:
+                return
+            else:
+                commands.search_commands(option, service)
 
         except ValueError:
             input("Invalid input, Try again...")
@@ -190,7 +191,10 @@ def sort_menu(service):
                                "0 - Return\n"
                                "Select an option: "))
 
-            commands.sort_commands(option, service)
+            if option == 0:
+                return
+            else:
+                commands.sort_commands(option, service)
 
         except ValueError:
             input("Invalid input, Try again...")
@@ -210,7 +214,10 @@ def date_menu(service):
                                "0 - Return\n"
                                "Select an option: "))
 
-            commands.date_commands(option, service)
+            if option == 0:
+                return
+            else:
+                commands.date_commands(option, service)
 
         except ValueError:
             input("Invalid input, Try again...")
