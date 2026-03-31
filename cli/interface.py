@@ -45,7 +45,6 @@ def transactions_menu(service):
         except ValueError:
             input("Invalid input, Try again...")
 
-
 def modify_menu(service, transaction):
     while True:
         try:
@@ -67,7 +66,6 @@ def modify_menu(service, transaction):
         except ValueError:
             input("Invalid input, Try again...")
 
-
 def transaction_type_menu(service, operation_type):
     while True:
         try:
@@ -88,7 +86,6 @@ def transaction_type_menu(service, operation_type):
         except ValueError:
             input("Invalid input, Try again...")
 
-
 def category_menu(service, transaction_type):
     while True:
         try:
@@ -108,30 +105,14 @@ def category_menu(service, transaction_type):
         except ValueError:
             input("Invalid input, Try again...")
 
-
 def show_transactions(service):
-    if service.balance:
-        total_income = 0
-        for i in service.list:
-            if i.transaction_type.value == "income":
-                total_income += i.amount
-
-        total_expense = 0
-        for i in service.list:
-            if i.transaction_type.value == "expense":
-                total_expense += i.amount
-
-        print("\n==============================BALANCE============================="
-              f"\n{'Total income: $:':>37}{total_income:.2f}\n"
-              f"{'Total expense: $':>37}{total_expense:.2f}\n"
-              f"{'Total Balance: $:':>38}{total_income - total_expense:.2f}")
 
     if service.income:
         print("\n==============================INCOME==============================\n"
               f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        income_list = service.create_list(TransactionType.INCOME)
-        if income_list:
-            income_list = service.create_list(TransactionType.INCOME)
+        income_list = service.apply_filter(TransactionType.INCOME)
+        sorted_income_list = service.sort_list(income_list)
+        if sorted_income_list:
             for c, i in enumerate(income_list, start=1):
                 print(f"{c}    {i}")
         else:
@@ -140,14 +121,29 @@ def show_transactions(service):
     if service.expense:
         print("\n=============================EXPENSES=============================\n"
               f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        expense_list = service.create_list(TransactionType.EXPENSE)
-        if expense_list:
-            expense_list = service.create_list(TransactionType.EXPENSE)
+        expense_list = service.apply_filter(TransactionType.EXPENSE)
+        sorted_expense_list = service.sort_list(expense_list)
+        if sorted_expense_list:
             for c, i in enumerate(expense_list, start=1):
                 print(f"{c}    {i}")
         else:
             print(f"{'\nLIST EMPTY! try adding new transactions...':^70}")
 
+        if service.balance:
+            total_income = 0
+            for i in income_list:
+                if i.transaction_type.value == "income":
+                    total_income += i.amount
+
+            total_expense = 0
+            for i in expense_list:
+                if i.transaction_type.value == "expense":
+                    total_expense += i.amount
+
+            print("\n==============================BALANCE============================="
+                  f"\n{'Total income: $:':>37}{total_income:.2f}\n"
+                  f"{'Total expense: $':>37}{total_expense:.2f}\n"
+                  f"{'Total Balance: $:':>38}{total_income - total_expense:.2f}")
 
 def search_menu(service):
     while True:

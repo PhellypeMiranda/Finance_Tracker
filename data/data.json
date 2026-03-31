@@ -1,58 +1,37 @@
 [
     {
-        "name": "aulas",
+        "name": "aulas de ingl\u00eas",
         "transaction_type": "income",
-        "amount": "52",
-        "transaction_date": "2026-03-01",
+        "amount": "2000",
+        "transaction_date": "2026-03-30",
+        "category": "salary"
+    },
+    {
+        "name": "aula de matem\u00e1tica",
+        "transaction_type": "income",
+        "amount": "50",
+        "transaction_date": "2026-03-30",
         "category": "freelance"
     },
     {
-        "name": "comer cu",
-        "transaction_type": "expense",
-        "amount": "54",
-        "transaction_date": "2026-03-30",
-        "category": "entertainment"
-    },
-    {
-        "name": "dwad",
+        "name": "aula de qu\u00edmica",
         "transaction_type": "income",
-        "amount": "555",
+        "amount": "40",
         "transaction_date": "2026-03-30",
-        "category": "bonus"
+        "category": "freelance"
     },
     {
-        "name": "frsf",
-        "transaction_type": "income",
-        "amount": "5664",
-        "transaction_date": "2026-03-30",
-        "category": "other_income"
-    },
-    {
-        "name": "dwade",
+        "name": "mercado",
         "transaction_type": "expense",
         "amount": "100",
-        "transaction_date": "2026-03-30",
-        "category": "food"
-    },
-    {
-        "name": "kihlij",
-        "transaction_type": "expense",
-        "amount": "69",
         "transaction_date": "2026-03-30",
         "category": "housing"
     },
     {
-        "name": "entrega",
-        "transaction_type": "income",
-        "amount": "20",
-        "transaction_date": "2026-01-10",
-        "category": "freelance"
-    },
-    {
-        "name": "antigo",
-        "transaction_type": "income",
-        "amount": "55",
-        "transaction_date": "2025-02-02",
-        "category": "investments"
+        "name": "conta de luz",
+        "transaction_type": "expense",
+        "amount": "75",
+        "transaction_date": "2026-02-05",
+        "category": "utilities"
     }
 ]

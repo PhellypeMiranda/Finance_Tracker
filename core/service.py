@@ -22,27 +22,29 @@ class Service:
         self.increasing = True
         self.by_month = True
 
-    def create_list(self, transaction_type):
-        if self.by_month:
-            if self.category:
-                new_list = [i for i in self.list if i.transaction_type == transaction_type and i.category == self.category and i.transaction_date.month == self.month]
-            else:
-                new_list = [i for i in self.list if i.transaction_type == transaction_type and i.transaction_date.month == self.month]
-        elif not self.by_month:
-            if self.category:
-                new_list = [i for i in self.list if
-                            i.transaction_type == transaction_type and i.category == self.category and i.transaction_date.year == self.year]
-            else:
-                new_list = [i for i in self.list if
-                            i.transaction_type == transaction_type and i.transaction_date.year == self.year]
+    def apply_filter(self, transaction_type):
+        transaction_list = []
+        for item in self.list:
+            if item.transaction_type != transaction_type:
+                continue
+            if self.category and self.category != item.category:
+                continue
+            if self.by_month and item.transaction_date.month != self.month:
+                continue
+            if not self.month and item.transaction_date.year != self.year:
+                continue
+            transaction_list.append(item)
+        return transaction_list
+
+    def sort_list(self, transaction_list):
         sort_map = {
             "date": lambda x: x.transaction_date,
             "name": lambda x: x.name,
             "value": lambda x: x.amount
         }
         key_func = sort_map.get(self.sort)
-        new_list.sort(key=key_func, reverse=not self.increasing)
-        return new_list
+        transaction_list.sort(key=key_func, reverse=not self.increasing)
+        return transaction_list
 
     def date_setter(self, service):
         while True:
@@ -56,14 +58,16 @@ class Service:
                 date_list = [] #create a list to get the items by index
                 for i in dates_with_items.values():
                     date_list.append(i)
-                index = user_input.change_date(service, date_list)
-                selected = date_list[index - 1]
-                self.month = selected.month
-                self.year = selected.year
-                if self.by_month:
-                    input(f"Month changed to {format.month_year(selected)}")
-                else:
-                    input(f"Year changed to {format.year(selected)}")
+                not_empty = validation.check_if_not_empty(date_list)
+                if not_empty:
+                    index = user_input.change_date(service, date_list)
+                    selected = date_list[index - 1]
+                    self.month = selected.month
+                    self.year = selected.year
+                    if self.by_month:
+                        input(f"Month changed to {format.month_year(selected)}")
+                    else:
+                        input(f"Year changed to {format.year(selected)}")
                 interface.date_menu(service)
             except (ValueError, IndexError):
                 print("Please enter a valid month!")
@@ -92,7 +96,7 @@ class Service:
 
     def remove_transaction(self, service):
         transaction_type = interface.transaction_type_menu(service, "remove")
-        transactions_list = self.create_list(transaction_type)
+        transactions_list = self.apply_filter(transaction_type)
         not_empty = validation.check_if_not_empty(transactions_list)
         if not_empty:
             index = user_input.type_index(f"\nType the id of the {transaction_type.value} you want to remove: ", len(transactions_list))
@@ -109,7 +113,7 @@ class Service:
 
     def modify_transaction(self, service):
         transaction_type = interface.transaction_type_menu(service, "modify")
-        transactions_list = self.create_list(transaction_type)
+        transactions_list = self.apply_filter(transaction_type)
         not_empty = validation.check_if_not_empty(transactions_list)
         if not_empty:
             index = user_input.type_index(f"\nType the id of the {transaction_type.value} you want to modify: ",
