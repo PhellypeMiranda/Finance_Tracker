@@ -1,13 +1,12 @@
 import os
 import sys
-from storage.file_handler import FileHandler
-from models.ledger import Ledger
-from utils import user_input
-from cli import interface
+from infrastructure.storage.file_handler import FileHandler
+from domain.entities.ledger import Ledger
+from interface.cli.utils import user_input, format, validation as validation
+from interface.cli import interface
 from datetime import date
-from utils import format
-from models.transaction import Transaction
-from utils import validation as validation
+from domain.entities.transaction import Transaction
+
 
 class Service:
     def __init__(self, month=date.today().month, year=date.today().year):

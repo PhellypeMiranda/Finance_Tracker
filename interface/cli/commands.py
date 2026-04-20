@@ -1,10 +1,10 @@
-from cli import interface
-from models.transaction_type import TransactionType
-from models.category import Category
-from utils import user_input
+from interface.cli import interface
+from domain.entities.transaction_type import TransactionType
+from domain.entities.category import Category
+from interface.cli.utils import user_input, format
 from decimal import Decimal
 from datetime import date
-from utils import format
+
 
 def main_commands(option, service):
     match option:

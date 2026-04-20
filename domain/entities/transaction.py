@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from decimal import Decimal
-from models.category import Category
-from models.transaction_type import TransactionType
+from domain.entities.category import Category
+from domain.entities.transaction_type import TransactionType
 
 class Transaction:
     def __init__(self, name, transaction_type, amount, category, transaction_date=date.today()):

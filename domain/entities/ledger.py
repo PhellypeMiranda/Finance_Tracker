@@ -1,4 +1,4 @@
-from models.transaction import Transaction
+from domain.entities.transaction import Transaction
 
 class Ledger:
     def __init__(self):

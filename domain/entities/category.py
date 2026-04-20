@@ -1,5 +1,5 @@
 from enum import Enum
-from models.transaction_type import TransactionType
+from domain.entities.transaction_type import TransactionType
 
 class Category(Enum):
     # Expenses

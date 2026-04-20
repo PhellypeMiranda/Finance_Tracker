@@ -1,5 +1,5 @@
 import json
-from config import DATA_DIR
+from infrastructure.config.config import DATA_DIR
 
 class FileHandler:
     def __init__(self, json_file="data.json"):

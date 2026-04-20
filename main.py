@@ -1,6 +1,6 @@
-from cli import interface
-from core.service import Service
-from cli import commands
+from interface.cli import interface, commands
+from domain.services.service import Service
+
 
 def run():
     service = Service()

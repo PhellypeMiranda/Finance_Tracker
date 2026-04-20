@@ -1,7 +1,6 @@
-import utils.format
+from cli.utils import format as fmt
 from cli import commands
-from models.category import Category
-from models.transaction_type import TransactionType
+from domain.entities.transaction_type import TransactionType
 
 
 def main_menu(service):
@@ -116,9 +115,9 @@ def show_transactions(service):
 
     if base_list:
         if service.by_month:
-            shown_date = utils.format.month_year(base_list[0].transaction_date)
+            shown_date = fmt.month_year(base_list[0].transaction_date)
         else:
-            shown_date = utils.format.year(base_list[0].transaction_date)
+            shown_date = fmt.year(base_list[0].transaction_date)
     else:
         shown_date = "NO DATA"
 

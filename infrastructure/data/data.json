@@ -82,5 +82,12 @@
         "amount": "55",
         "transaction_date": "2026-03-31",
         "category": "bonus"
+    },
+    {
+        "name": "oi",
+        "transaction_type": "income",
+        "amount": "55",
+        "transaction_date": "2026-04-20",
+        "category": "salary"
     }
 ]
