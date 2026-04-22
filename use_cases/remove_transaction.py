@@ -1,12 +1,8 @@
-from domain.entities.transaction import Transaction
-from domain.services.service import Service
-
-
-class RemoveTransaction:
-    def __init__(self, service, repository):
+class RemoveTransactionUseCase:
+    def __init__(self, repository):
         self.repository = repository
-        self.service = service
 
     def execute(self, index):
-        self.service.remove_transaction(self.service.ledger[index])
-        self.repository.save_data(self.service.ledger)
+        ledger = self.repository.load_data()
+        ledger.remove_transaction(index)
+        self.repository.save_data(ledger)

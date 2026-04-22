@@ -1,7 +1,7 @@
 from domain.services import service
 from interface.cli import interface
-from domain.entities.transaction_type import TransactionType
-from domain.entities.category import Category
+from domain.value_objetcs.transaction_type import TransactionType
+from domain.value_objetcs.category import Category
 from utils import user_input, format
 from decimal import Decimal
 from datetime import date

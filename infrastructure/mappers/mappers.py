@@ -1,6 +1,6 @@
 from domain.entities.transaction import Transaction
-from domain.entities.category import Category
-from domain.entities.transaction_type import TransactionType
+from domain.value_objetcs.category import Category
+from domain.value_objetcs.transaction_type import TransactionType
 from decimal import Decimal
 from datetime import datetime
 

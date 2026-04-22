@@ -1,17 +1,22 @@
 from datetime import date
 from decimal import Decimal
+from dataclasses import dataclass, field
+from domain.value_objetcs.transaction_type import TransactionType
+from domain.value_objetcs.category import Category
 
+@dataclass
 class Transaction:
-    def __init__(self, name, transaction_type, amount, category, transaction_date=date.today()):
-        self.name = name
-        self.transaction_type = transaction_type
-        self.amount = Decimal(amount)
-        self.category = category
-        self.transaction_date = transaction_date
+    name: str
+    transaction_type: TransactionType
+    amount: Decimal
+    category: Category
+    transaction_date: date = field(default_factory=date.today)
 
-    def __str__(self):
-        return (f'{self.name:<20}$:{+self.amount:<13.2f}'
-                f'{self.category.value[0]:<15}{self.transaction_date.strftime("%d-%m-%Y")}')
+    def __post_init__(self):
+        self.amount = Decimal(self.amount)
 
-    def __repr__(self):
-        return f'{self.name} | {self.transaction_type} | {self.amount} | {self.category} | {self.transaction_date}'
+        if isinstance(self.transaction_type, str):
+            self.transaction_type = TransactionType(self.transaction_type)
+
+        if isinstance(self.category, str):
+            self.category = Category(self.category)

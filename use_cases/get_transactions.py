@@ -1,6 +1,6 @@
-class GetTransactions:
-    def __init__(self, service):
-        self.service = service
+class GetTransactionsUseCase:
+    def __init__(self, repository):
+        self.repository = repository
 
     def execute(self):
-        return self.service.ledger
+        return self.repository.load_data()
