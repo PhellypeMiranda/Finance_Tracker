@@ -1,21 +1,32 @@
+from domain.services import service
 from interface.cli import interface
 from domain.entities.transaction_type import TransactionType
 from domain.entities.category import Category
-from interface.cli.utils import user_input, format
+from utils import user_input, format
 from decimal import Decimal
 from datetime import date
 
-
-def main_commands(option, service):
+def main_commands(option, add_transaction, remove_transaction, get_transactions):
     match option:
         case 1:
-            service.add_transaction(service)
+            transaction_type = interface.transaction_type_menu("add")
+            name = user_input.type_name(f"\nType the name of the {transaction_type.value}: ")
+            amount = user_input.type_amount(f"Type the value of the {transaction_type.value}: ")
+            category = interface.category_menu(transaction_type)
+            current_date = user_input.confirmation(f"Add today's date: {format.today_date()}?")
+            if current_date:
+                transaction_date = date.today()
+            else:
+                transaction_date = user_input.type_date(f"Enter other date (YYYY-MM-DD):")
+            add_transaction.execute(name, transaction_type, amount, category, transaction_date)
         case 2:
-            service.remove_transaction(service)
+            transaction_list = get_transactions.execute()
+            lenght - len(transaction_list)
+            index = user_input.type_index("Which transaction do you want to remove?", 2)
+            remove_transaction.execute(index - 1)
         case 3:
             service.modify_transaction(service)
         case 4:
-            service.balance = False
             interface.search_menu(service)
         case 5:
             interface.date_menu(service)
@@ -74,21 +85,11 @@ def modify_commands(option, service, transaction):
         case _:
             print("Invalid input! try again...")
 
-def transaction_type_commands(option, service):
+def transaction_type_commands(option):
     match option:
         case 1:
-            service.income = True
-            service.expense = False
-            service.balance = False
-            service.clear_screen()
-            interface.show_transactions(service)
             return TransactionType.INCOME
         case 2:
-            service.income = False
-            service.expense = True
-            service.balance = False
-            service.clear_screen()
-            interface.show_transactions(service)
             return TransactionType.EXPENSE
         case _:
             print("Invalid input! try again...")

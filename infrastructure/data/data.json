@@ -1,93 +1,23 @@
 [
     {
-        "name": "aulas de ingl\u00eas",
-        "transaction_type": "income",
-        "amount": "2000",
-        "transaction_date": "2026-03-30",
-        "category": "salary"
-    },
-    {
-        "name": "aula de matem\u00e1tica",
-        "transaction_type": "income",
-        "amount": "50",
-        "transaction_date": "2026-03-30",
-        "category": "freelance"
-    },
-    {
-        "name": "conta de luz",
-        "transaction_type": "expense",
-        "amount": "75",
-        "transaction_date": "2026-02-05",
-        "category": "utilities"
-    },
-    {
-        "name": "hamburguer",
-        "transaction_type": "expense",
-        "amount": "30",
-        "transaction_date": "2026-03-30",
-        "category": "food"
-    },
-    {
-        "name": "trabalho online",
-        "transaction_type": "income",
-        "amount": "200",
-        "transaction_date": "2025-01-01",
-        "category": "freelance"
-    },
-    {
-        "name": "pegamento de dividas",
-        "transaction_type": "expense",
-        "amount": "20",
-        "transaction_date": "2025-01-01",
-        "category": "other_expense"
-    },
-    {
-        "name": "1",
-        "transaction_type": "income",
-        "amount": "5",
-        "transaction_date": "2026-02-02",
-        "category": "freelance"
-    },
-    {
         "name": "aula",
         "transaction_type": "income",
         "amount": "50",
-        "transaction_date": "2026-03-31",
+        "transaction_date": "2026-04-20",
         "category": "freelance"
     },
     {
-        "name": "compras",
-        "transaction_type": "expense",
-        "amount": "20",
-        "transaction_date": "2026-03-31",
-        "category": "transport"
-    },
-    {
-        "name": "tutu",
-        "transaction_type": "expense",
-        "amount": "52",
-        "transaction_date": "2026-03-31",
-        "category": "food"
-    },
-    {
-        "name": "dsd",
+        "name": "venfa",
         "transaction_type": "income",
-        "amount": "1",
-        "transaction_date": "2026-03-31",
-        "category": "salary"
-    },
-    {
-        "name": "grg",
-        "transaction_type": "income",
-        "amount": "55",
-        "transaction_date": "2026-03-31",
+        "amount": "500",
+        "transaction_date": "2026-04-20",
         "category": "bonus"
     },
     {
-        "name": "oi",
-        "transaction_type": "income",
-        "amount": "55",
+        "name": "putas",
+        "transaction_type": "expense",
+        "amount": "200",
         "transaction_date": "2026-04-20",
-        "category": "salary"
+        "category": "entertainment"
     }
 ]

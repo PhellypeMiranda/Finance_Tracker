@@ -1,16 +1,11 @@
-from cli.utils import format as fmt
-from cli import commands
-from domain.entities.transaction_type import TransactionType
+import os
+from interface.cli import commands
 
 
-def main_menu(service):
+def main_menu(add_transaction, remove_transaction, get_transactions):
     while True:
         try:
-            service.clear_screen()
-            service.balance = True
-            service.expense = True
-            service.income = True
-            show_transactions(service)
+            show_transactions(get_transactions)
             option = int(input("\n===========MENU===========\n"
                                "1 - Add new transaction\n"
                                "2 - Remove a transaction\n"
@@ -21,7 +16,7 @@ def main_menu(service):
                                "0 - Exit\n"
                                "Select an option: "))
 
-            commands.main_commands(option, service)
+            commands.main_commands(option, add_transaction, remove_transaction, get_transactions)
 
         except ValueError:
             input("Invalid input, type a number!")
@@ -29,8 +24,6 @@ def main_menu(service):
 def modify_menu(service, transaction):
     while True:
         try:
-            service.clear_screen()
-            show_transactions(service)
             option = int(input("\n===========MENU===========\n"
                                "Which would you like to modify?\n"
                                "1 - Name\n"
@@ -45,11 +38,9 @@ def modify_menu(service, transaction):
         except ValueError:
             input("Invalid input, Try again...")
 
-def transaction_type_menu(service, operation_type):
+def transaction_type_menu(operation_type):
     while True:
         try:
-            service.clear_screen()
-            show_transactions(service)
             option = int(input("\n===========MENU===========\n"
                                f"Which kind of transaction do you want to {operation_type}?\n"
                                f"1 - {operation_type} income\n"
@@ -57,18 +48,16 @@ def transaction_type_menu(service, operation_type):
                                "Select an option: "))
 
             if 1 <= option <= 2:
-                return commands.transaction_type_commands(option, service)
+                return commands.transaction_type_commands(option)
             else:
                 input("Invalid input, Try again...")
 
         except ValueError:
             input("Invalid input, Try again...")
 
-def category_menu(service, transaction_type):
+def category_menu(transaction_type):
     while True:
         try:
-            service.clear_screen()
-            show_transactions(service)
             print("\n===========MENU===========\n"
                   "Select a category for your transaction:\n")
             if transaction_type.value == "income":
@@ -104,56 +93,11 @@ def category_menu(service, transaction_type):
         except ValueError:
             input("Invalid input, Try again...")
 
-def show_transactions(service):
-
-    income_list = service.apply_filter(TransactionType.INCOME)
-    sorted_income_list = service.sort_list(income_list)
-    expense_list = service.apply_filter(TransactionType.EXPENSE)
-    sorted_expense_list = service.sort_list(expense_list)
-
-    base_list = income_list or expense_list
-
-    if base_list:
-        if service.by_month:
-            shown_date = fmt.month_year(base_list[0].transaction_date)
-        else:
-            shown_date = fmt.year(base_list[0].transaction_date)
-    else:
-        shown_date = "NO DATA"
-
-    if service.income:
-        print(f"\n===========================INCOME-{shown_date}===========================\n"
-              f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        if sorted_income_list:
-            for c, i in enumerate(sorted_income_list, start=1):
-                print(f"{c}    {i}")
-        else:
-            print(f"{'\nLIST EMPTY! try adding new transactions...':^70}")
-
-    if service.expense:
-        print(f"\n===========================EXPENSES-{shown_date}=========================\n"
-              f"{"Id":<5}{"Name":<20}{"Value":<15}{"Category":<15}{"Date":<10}")
-        if sorted_expense_list:
-            for c, i in enumerate(sorted_expense_list, start=1):
-                print(f"{c}    {i}")
-        else:
-            print(f"{'\nLIST EMPTY! try adding new transactions...':^70}")
-
-    if service.balance:
-        total_income = 0
-        for i in income_list:
-            if i.transaction_type.value == "income":
-                total_income += i.amount
-
-        total_expense = 0
-        for i in expense_list:
-            if i.transaction_type.value == "expense":
-                total_expense += i.amount
-
-        print(f"\n===========================BALANCE-{shown_date}-========================="
-              f"\n{'Total income: $:':>37}{total_income:.2f}\n"
-              f"{'Total expense: $':>37}{total_expense:.2f}\n"
-              f"{'Total Balance: $:':>38}{total_income - total_expense:.2f}")
+def show_transactions(get_transactions):
+    os.system('cls' if os.name == 'nt' else 'clear')
+    transaction_list = get_transactions.execute()
+    for i in transaction_list:
+        print(i)
 
 def search_menu(service):
     while True:

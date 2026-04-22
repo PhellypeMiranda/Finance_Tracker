@@ -1,8 +1,8 @@
 from domain.entities.transaction import Transaction
 
 class Ledger:
-    def __init__(self):
-        self.ledger = []
+    def __init__(self, ledger):
+        self.ledger = ledger
 
     def __str__(self):
         return str(self.ledger)
@@ -24,9 +24,6 @@ class Ledger:
 
     def remove_item(self, item):
         self.ledger.remove(item)
-
-    def convert_ledger_to_dict(self):
-        return [i.convert_to_dict() for i in self.ledger]
 
     def convert_ledger_to_obj(self, dict_transactions):
         self.ledger = [Transaction.convert_to_obt(i) for i in dict_transactions]
