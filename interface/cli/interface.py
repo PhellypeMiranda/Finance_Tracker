@@ -95,11 +95,6 @@ def category_menu(transaction_type):
 
 def show_transactions(get_transactions):
     os.system('cls' if os.name == 'nt' else 'clear')
-    transaction_list = get_transactions.execute()
-
-
-    for i in transaction_list:
-        print(i.name)
 
 def search_menu(service):
     while True:

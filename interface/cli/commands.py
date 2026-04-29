@@ -1,4 +1,6 @@
-from domain.services import service
+import sys
+
+from application.use_cases.finish_program import FinishProgramUseCase
 from interface.cli import interface
 from domain.value_objetcs.transaction_type import TransactionType
 from domain.value_objetcs.category import Category
@@ -31,7 +33,7 @@ def main_commands(option, add_transaction, remove_transaction, get_transactions)
         case 5:
             interface.date_menu(service)
         case 0:
-            service.exit()
+            FinishProgramUseCase.execute()
         case _:
             input("Invalid input! try again...")
 

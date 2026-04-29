@@ -1,3 +1,5 @@
+from domain.services.transaction_service import *
+
 class GetTransactionsUseCase:
     def __init__(self, repository):
         self.repository = repository
